@@ -30,4 +30,7 @@ public class EventService {
         return eventMapper.selectTotal();
     }
 
+//    특정 이벤트 불러오기
+    public EventDto getEventInfo(int eventNumber);
+
 }

@@ -47,6 +47,12 @@ public class EventController {
         return "event/employeeIntro" ;
     }
 
+    @GetMapping("/detail")
+    public String showEventDetail() {
+
+        return "eventdetail";
+    }
+
 
 
 }
