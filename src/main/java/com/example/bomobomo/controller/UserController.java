@@ -70,7 +70,15 @@ public class UserController {
     public RedirectView login(String userId, String userPassword, HttpServletRequest req, RedirectAttributes redirectAttributes){
         UserDto userDto = null;
 
-//        UserDto userDto = userService.find(userId, userPassword);
+
+        try {
+            userDto = userService.find(userId, userPassword);
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("isLogin", "0");
+            return new RedirectView("/user/login");
+        }
+
+        //        UserDto userDto = userService.find(userId, userPassword);
         req.getSession().setAttribute("userNumber", userDto.getUserNumber());
         req.getSession().setAttribute("userName",userDto.getUserName());
         req.getSession().setAttribute("userId", userDto.getUserId());
@@ -79,12 +87,6 @@ public class UserController {
         System.out.println("로그인 컨트롤러 : " + userDto.getUserName());
         System.out.println("로그인 컨트롤러 : " + userDto.getUserNumber());
 
-        try {
-            userDto = userService.find(userId, userPassword);
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("isLogin", "0");
-            return new RedirectView("/user/login");
-        }
 
         return new RedirectView("/common/index");
     }
